@@ -7,7 +7,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// ServiceCommand install/uninstall/start/stop supervisord service
+// ServiceCommand install/uninstall/start/stop supervisor-go service
 type ServiceCommand struct {
 }
 
@@ -45,8 +45,8 @@ func (sc ServiceCommand) Execute(args []string) error {
 	}
 
 	svcConfig := &service.Config{
-		Name:        "go-supervisord",
-		DisplayName: "go-supervisord",
+		Name:        "go-supervisor-go",
+		DisplayName: "go-supervisor-go",
 		Description: "Supervisord service in golang",
 		Arguments:   serviceArgs,
 	}
@@ -62,21 +62,21 @@ func (sc ServiceCommand) Execute(args []string) error {
 	case "install":
 		err := s.Install()
 		if err != nil {
-			log.Error("Failed to install service go-supervisord: ", err)
-			fmt.Println("Failed to install service go-supervisord: ", err)
+			log.Error("Failed to install service go-supervisor-go: ", err)
+			fmt.Println("Failed to install service go-supervisor-go: ", err)
 			return err
 		} else {
-			fmt.Println("Succeed to install service go-supervisord")
+			fmt.Println("Succeed to install service go-supervisor-go")
 		}
 	case "uninstall":
 		s.Stop()
 		err := s.Uninstall()
 		if err != nil {
-			log.Error("Failed to uninstall service go-supervisord: ", err)
-			fmt.Println("Failed to uninstall service go-supervisord: ", err)
+			log.Error("Failed to uninstall service go-supervisor-go: ", err)
+			fmt.Println("Failed to uninstall service go-supervisor-go: ", err)
 			return err
 		} else {
-			fmt.Println("Succeed to uninstall service go-supervisord")
+			fmt.Println("Succeed to uninstall service go-supervisor-go")
 		}
 	case "start":
 		err := s.Start()
@@ -85,7 +85,7 @@ func (sc ServiceCommand) Execute(args []string) error {
 			fmt.Println("Failed to start service: ", err)
 			return err
 		} else {
-			fmt.Println("Succeed to start service go-supervisord")
+			fmt.Println("Succeed to start service go-supervisor-go")
 		}
 	case "stop":
 		err := s.Stop()
@@ -94,7 +94,7 @@ func (sc ServiceCommand) Execute(args []string) error {
 			fmt.Println("Failed to stop service: ", err)
 			return err
 		} else {
-			fmt.Println("Succeed to stop service go-supervisord")
+			fmt.Println("Succeed to stop service go-supervisor-go")
 		}
 
 	default:
@@ -105,7 +105,7 @@ func (sc ServiceCommand) Execute(args []string) error {
 }
 
 func showUsage() {
-	fmt.Println("usage: supervisord service install/uninstall/start/stop")
+	fmt.Println("usage: supervisor-go service install/uninstall/start/stop")
 }
 
 func init() {

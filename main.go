@@ -13,8 +13,8 @@ import (
 
 	"github.com/jessevdk/go-flags"
 	"github.com/ochinchina/go-ini"
-	"github.com/ochinchina/supervisord/config"
-	"github.com/ochinchina/supervisord/logger"
+	"github.com/ochinchina/supervisor-go/config"
+	"github.com/ochinchina/supervisor-go/logger"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -96,22 +96,22 @@ func loadEnvFile() {
 	}
 }
 
-// find the supervisord.conf in following order:
+// find the supervisor-go.conf in following order:
 //
-// 1. $CWD/supervisord.conf
-// 2. $CWD/etc/supervisord.conf
-// 3. /etc/supervisord.conf
-// 4. /etc/supervisor/supervisord.conf (since Supervisor 3.3.0)
-// 5. ../etc/supervisord.conf (Relative to the executable)
-// 6. ../supervisord.conf (Relative to the executable)
+// 1. $CWD/supervisor-go.conf
+// 2. $CWD/etc/supervisor-go.conf
+// 3. /etc/supervisor-go.conf
+// 4. /etc/supervisor/supervisor-go.conf (since Supervisor 3.3.0)
+// 5. ../etc/supervisor-go.conf (Relative to the executable)
+// 6. ../supervisor-go.conf (Relative to the executable)
 func findSupervisordConf() (string, error) {
 	possibleSupervisordConf := []string{options.Configuration,
-		"./supervisord.ini",
-		"./etc/supervisord.conf",
-		"/etc/supervisord.conf",
-		"/etc/supervisor/supervisord.conf",
-		"../etc/supervisord.conf",
-		"../supervisord.conf"}
+		"./supervisor-go.ini",
+		"./etc/supervisor-go.conf",
+		"/etc/supervisor-go.conf",
+		"/etc/supervisor/supervisor-go.conf",
+		"../etc/supervisor-go.conf",
+		"../supervisor-go.conf"}
 
 	for _, file := range possibleSupervisordConf {
 		if _, err := os.Stat(file); err == nil {
@@ -123,7 +123,7 @@ func findSupervisordConf() (string, error) {
 		}
 	}
 
-	return "", fmt.Errorf("fail to find supervisord.conf")
+	return "", fmt.Errorf("fail to find supervisor-go.conf")
 }
 
 func runServer() {
@@ -142,7 +142,7 @@ func runServer() {
 	}
 }
 
-// Get the supervisord log file
+// Get the supervisor-go log file
 func getSupervisordLogFile(configFile string) string {
 	configFileDir := filepath.Dir(configFile)
 	env := config.NewStringExpression("here", configFileDir)
@@ -152,19 +152,19 @@ func getSupervisordLogFile(configFile string) string {
 	if err != nil {
 		cwd = "."
 	}
-	logFile := myini.GetValueWithDefault("supervisord", "logfile", filepath.Join(cwd, "supervisord.log"))
+	logFile := myini.GetValueWithDefault("supervisor-go", "logfile", filepath.Join(cwd, "supervisor-go.log"))
 	logFile, err = env.Eval(logFile)
 	if err == nil {
 		return logFile
 	} else {
-		return filepath.Join(".", "supervisord.log")
+		return filepath.Join(".", "supervisor-go.log")
 	}
 }
 
 func main() {
 	ReapZombie()
 
-	// when execute `supervisord` without sub-command, it should start the server
+	// when execute `supervisor-go` without sub-command, it should start the server
 	parser.Command.SubcommandsOptional = true
 	parser.CommandHandler = func(command flags.Commander, args []string) error {
 		if command == nil {

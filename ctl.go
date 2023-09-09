@@ -7,14 +7,14 @@ import (
 	"strings"
 
 	"github.com/jessevdk/go-flags"
-	"github.com/ochinchina/supervisord/config"
-	"github.com/ochinchina/supervisord/types"
-	"github.com/ochinchina/supervisord/xmlrpcclient"
+	"github.com/ochinchina/supervisor-go/config"
+	"github.com/ochinchina/supervisor-go/types"
+	"github.com/ochinchina/supervisor-go/xmlrpcclient"
 )
 
 // CtlCommand the entry of ctl command
 type CtlCommand struct {
-	ServerURL string `short:"s" long:"serverurl" description:"URL on which supervisord server is listening"`
+	ServerURL string `short:"s" long:"serverurl" description:"URL on which supervisor-go server is listening"`
 	User      string `short:"u" long:"user" description:"the user name"`
 	Password  string `short:"P" long:"password" description:"the password"`
 	Verbose   bool   `short:"v" long:"verbose" description:"Show verbose debug information"`
@@ -237,7 +237,7 @@ func (x *CtlCommand) restartProcesses(rpcc *xmlrpcclient.XMLRPCClient, processes
 	x._startStopProcesses(rpcc, "start", processes, "restarted", true)
 }
 
-// shutdown the supervisord
+// shutdown the supervisor-go
 func (x *CtlCommand) shutdown(rpcc *xmlrpcclient.XMLRPCClient) {
 	if reply, err := rpcc.Shutdown(); err == nil {
 		if reply.Value {
@@ -250,7 +250,7 @@ func (x *CtlCommand) shutdown(rpcc *xmlrpcclient.XMLRPCClient) {
 	}
 }
 
-// reload all the programs in the supervisord
+// reload all the programs in the supervisor-go
 func (x *CtlCommand) reload(rpcc *xmlrpcclient.XMLRPCClient) {
 	if reply, err := rpcc.ReloadConfig(); err == nil {
 
@@ -461,7 +461,7 @@ func (lc *LogtailCommand) tailLog(program string, dev string) error {
 // Execute check if the number of arguments is ok
 func (wc *CmdCheckWrapperCommand) Execute(args []string) error {
 	if len(args) < wc.leastNumArgs {
-		err := fmt.Errorf("Invalid arguments.\nUsage: supervisord ctl %v", wc.usage)
+		err := fmt.Errorf("Invalid arguments.\nUsage: supervisor-go ctl %v", wc.usage)
 		fmt.Printf("%v\n", err)
 		return err
 	}
@@ -490,8 +490,8 @@ func init() {
 		"restart one or more programs",
 		&restartCommand)
 	ctlCmd.AddCommand("shutdown",
-		"shutdown supervisord",
-		"shutdown supervisord",
+		"shutdown supervisor-go",
+		"shutdown supervisor-go",
 		&shutdownCommand)
 	ctlCmd.AddCommand("reload",
 		"reload the programs",

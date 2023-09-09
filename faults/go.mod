@@ -1,4 +1,4 @@
-module github.com/ochinchina/supervisord/faults
+module github.com/ochinchina/supervisor-go/faults
 
 go 1.16
 

@@ -1,7 +1,7 @@
 package config
 
 import (
-	"supervisord/util"
+	"supervisor-go/util"
 	"testing"
 )
 

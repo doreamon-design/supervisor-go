@@ -1,4 +1,4 @@
-module github.com/ochinchina/supervisord/config
+module github.com/ochinchina/supervisor-go/config
 
 go 1.16
 

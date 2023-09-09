@@ -14,10 +14,10 @@ type procCollector struct {
 	procMgr        *Manager
 }
 
-// NewProcCollector returns new Collector exposing supervisord statistics.
+// NewProcCollector returns new Collector exposing supervisor-go statistics.
 func NewProcCollector(mgr *Manager) *procCollector {
 	var (
-		subsystem  = "supervisord"
+		subsystem  = "supervisor-go"
 		labelNames = []string{"name", "group"}
 	)
 

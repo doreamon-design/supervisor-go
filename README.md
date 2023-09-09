@@ -1,41 +1,41 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/ochinchina/supervisord)](https://goreportcard.com/report/github.com/ochinchina/supervisord)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ochinchina/supervisor-go)](https://goreportcard.com/report/github.com/ochinchina/supervisor-go)
 
 # Why this project?
 
-The python script supervisord is a powerful tool used by a lot of guys to manage the processes. I like  supervisord too.
+The python script supervisor-go is a powerful tool used by a lot of guys to manage the processes. I like  supervisor-go too.
 
 But this tool requires that the big python environment be installed in target system. In some situation, for example in the docker environment, the python is too big for us.
 
-This project re-implements supervisord in go-lang. Compiled supervisord is very suitable for environments where python is not installed.
+This project re-implements supervisor-go in go-lang. Compiled supervisor-go is very suitable for environments where python is not installed.
 
-# Building the supervisord
+# Building the supervisor-go
 
-Before compiling the supervisord, make sure the go-lang 1.11+ is installed in your environment.
+Before compiling the supervisor-go, make sure the go-lang 1.11+ is installed in your environment.
 
-To compile supervisord for **linux**, run following commands:
+To compile supervisor-go for **linux**, run following commands:
 
 1. go generate
-2. GOOS=linux go build -tags release -a -ldflags "-linkmode external -extldflags -static" -o supervisord
+2. GOOS=linux go build -tags release -a -ldflags "-linkmode external -extldflags -static" -o supervisor-go
 
-# Run the supervisord
+# Run the supervisor-go
 
-After a supervisord binary has been generated, create a supervisord configuration file and start the supervisord like this:
+After a supervisor-go binary has been generated, create a supervisor-go configuration file and start the supervisor-go like this:
 
 ```Shell
 $ cat supervisor.conf
 [program:test]
 command = /your/program args
-$ supervisord -c supervisor.conf
+$ supervisor-go -c supervisor.conf
 ```
 
 Please note that config-file location autodetected in this order:
 
-1. $CWD/supervisord.conf
-2. $CWD/etc/supervisord.conf
-3. /etc/supervisord.conf
-4. /etc/supervisor/supervisord.conf (since Supervisor 3.3.0)
-5. ../etc/supervisord.conf (Relative to the executable)
-6. ../supervisord.conf (Relative to the executable)
+1. $CWD/supervisor-go.conf
+2. $CWD/etc/supervisor-go.conf
+3. /etc/supervisor-go.conf
+4. /etc/supervisor/supervisor-go.conf (since Supervisor 3.3.0)
+5. ../etc/supervisor-go.conf (Relative to the executable)
+6. ../supervisor-go.conf (Relative to the executable)
 
 
 # Run as daemon with web-ui
@@ -50,27 +50,27 @@ port=127.0.0.1:9001
 then run
 
 ```shell
-$ supervisord -c supervisor.conf -d
+$ supervisor-go -c supervisor.conf -d
 ```
 
-In order to manage the daemon, you can use `supervisord ctl` subcommand, available subcommands are: `status`, `start`, `stop`, `shutdown`, `reload`.
+In order to manage the daemon, you can use `supervisor-go ctl` subcommand, available subcommands are: `status`, `start`, `stop`, `shutdown`, `reload`.
 
 ```shell
-$ supervisord ctl status
-$ supervisord ctl status program-1 program-2...
-$ supervisord ctl status group:*
-$ supervisord ctl stop program-1 program-2...
-$ supervisord ctl stop group:*
-$ supervisord ctl stop all
-$ supervisord ctl start program-1 program-2...
-$ supervisord ctl start group:*
-$ supervisord ctl start all
-$ supervisord ctl shutdown
-$ supervisord ctl reload
-$ supervisord ctl signal <signal_name> <process_name> <process_name> ...
-$ supervisord ctl signal all
-$ supervisord ctl pid <process_name>
-$ supervisord ctl fg <process_name>
+$ supervisor-go ctl status
+$ supervisor-go ctl status program-1 program-2...
+$ supervisor-go ctl status group:*
+$ supervisor-go ctl stop program-1 program-2...
+$ supervisor-go ctl stop group:*
+$ supervisor-go ctl stop all
+$ supervisor-go ctl start program-1 program-2...
+$ supervisor-go ctl start group:*
+$ supervisor-go ctl start all
+$ supervisor-go ctl shutdown
+$ supervisor-go ctl reload
+$ supervisor-go ctl signal <signal_name> <process_name> <process_name> ...
+$ supervisor-go ctl signal all
+$ supervisor-go ctl pid <process_name>
+$ supervisor-go ctl fg <process_name>
 ```
 
 Please note that `supervisor ctl` subcommand works correctly only if http server is enabled in [inet_http_server], and **serverurl** correctly set. Unix domain socket is not currently supported for this pupose.
@@ -79,15 +79,15 @@ Serverurl parameter detected in the following order:
 
 - check if option -s or --serverurl is present, use this url
 - check if -c option is present, and the "serverurl" in "supervisorctl" section is present, use "serverurl" in section "supervisorctl"
-- check if "serverurl" in section "supervisorctl" is defined in autodetected supervisord.conf-file location and if it is - use found value
+- check if "serverurl" in section "supervisorctl" is defined in autodetected supervisor-go.conf-file location and if it is - use found value
 - use http://localhost:9001
 
 # Check the version
 
-Command "version" will show the current supervisord binary version.
+Command "version" will show the current supervisor-go binary version.
 
 ```shell
-$ supervisord version
+$ supervisor-go version
 ```
 
 # Supported features
@@ -103,16 +103,16 @@ If both "inet_http_server" and "unix_http_server" are not set up in the configur
 
 ## Supervisord daemon settings
 
-Following parameters configured in "supervisord" section:
+Following parameters configured in "supervisor-go" section:
 
-- **logfile**. Where to put log of supervisord itself.
+- **logfile**. Where to put log of supervisor-go itself.
 - **logfile_maxbytes**. Rotate log-file after it exceeds this length.
 - **logfile_backups**. Number of rotated log-files to preserve.
 - **loglevel**. Logging verbosity, can be trace, debug, info, warning, error, fatal and panic (according to documentation of module used for this feature). Defaults to info.
-- **pidfile**. Full path to file containing process id of current supervisord instance.
-- **minfds**. Reserve al least this amount of file descriptors on supervisord startup. (Rlimit nofiles).
-- **minprocs**. Reserve at least this amount of processes resource on supervisord startup. (Rlimit noproc).
-- **identifier**. Identifier of this supervisord instance. Required if there is more than one supervisord run on one machine in same namespace.
+- **pidfile**. Full path to file containing process id of current supervisor-go instance.
+- **minfds**. Reserve al least this amount of file descriptors on supervisor-go startup. (Rlimit nofiles).
+- **minprocs**. Reserve at least this amount of processes resource on supervisor-go startup. (Rlimit noproc).
+- **identifier**. Identifier of this supervisor-go instance. Required if there is more than one supervisor-go run on one machine in same namespace.
 
 ## Supervised program settings
 
@@ -122,12 +122,12 @@ Supervised program settings configured in [program:programName] section and incl
 - **process_name**. the process name
 - **numprocs**. number of process
 - **numprocs_start**. ??
-- **autostart**. Should be supervised command run on supervisord start? Defaults to **true**.
+- **autostart**. Should be supervised command run on supervisor-go start? Defaults to **true**.
 - **startsecs**. The total number of seconds which the program needs to stay running after a startup to consider the start successful (moving the process from the STARTING state to the RUNNING state). Set to 0 to indicate that the program needn’t stay running for any particular amount of time.
-- **startretries**. The number of serial failure attempts that supervisord will allow when attempting to start the program before giving up and putting the process into an FATAL state. See Process States for explanation of the FATAL state.
+- **startretries**. The number of serial failure attempts that supervisor-go will allow when attempting to start the program before giving up and putting the process into an FATAL state. See Process States for explanation of the FATAL state.
 - **autorestart**. Automatically re-run supervised command if it dies.
-- **exitcodes**. The list of “expected” exit codes for this program used with autorestart. If the autorestart parameter is set to unexpected, and the process exits in any other way than as a result of a supervisor stop request, supervisord will restart the process if it exits with an exit code that is not defined in this list.
-- **stopsignal**. Signal to send to command to gracefully stop it. If more than one stopsignal is configured, when stoping the program, the supervisor will send the signals to the program one by one with interval "stopwaitsecs". If the program does not exit after all the signals sent to the program, supervisord will kill the program.
+- **exitcodes**. The list of “expected” exit codes for this program used with autorestart. If the autorestart parameter is set to unexpected, and the process exits in any other way than as a result of a supervisor stop request, supervisor-go will restart the process if it exits with an exit code that is not defined in this list.
+- **stopsignal**. Signal to send to command to gracefully stop it. If more than one stopsignal is configured, when stoping the program, the supervisor will send the signals to the program one by one with interval "stopwaitsecs". If the program does not exit after all the signals sent to the program, supervisor-go will kill the program.
 - **stopwaitsecs**. Amount of time to wait before sending SIGKILL to supervised command to make it stop ungracefully.
 - **stdout_logfile**. Where STDOUT of supervised command should be redirected. (Particular values described lower in this file).
 - **stdout_logfile_maxbytes**. Log size after exceed which log will be rotated.
@@ -231,9 +231,9 @@ syslog_stderr_priority=err
 
 Supervisord has builtin web GUI: you can start, stop & check the status of program from the GUI. Following picture shows the default web GUI:
 
-![alt text](https://github.com/ochinchina/supervisord/blob/master/go_supervisord_gui.png)
+![alt text](https://github.com/ochinchina/supervisor-go/blob/master/go_supervisord_gui.png)
 
-Please note that in order to see|use Web GUI you should configure it in /etc/supervisord.conf both in [inet_http_server] (and|or [unix_http_server] if you prefer unix domain socket) and [supervisorctl]:
+Please note that in order to see|use Web GUI you should configure it in /etc/supervisor-go.conf both in [inet_http_server] (and|or [unix_http_server] if you prefer unix domain socket) and [supervisorctl]:
 
 ```ini
 [inet_http_server]
@@ -247,33 +247,33 @@ serverurl=http://127.0.0.1:9001
 
 # Usage from a Docker container
 
-supervisord is compiled inside a Docker image to be used directly inside another image, from the Docker Hub version.
+supervisor-go is compiled inside a Docker image to be used directly inside another image, from the Docker Hub version.
 
 ```Dockerfile
 FROM debian:latest
-COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
-CMD ["/usr/local/bin/supervisord"]
+COPY --from=ochinchina/supervisor-go:latest /usr/local/bin/supervisor-go /usr/local/bin/supervisor-go
+CMD ["/usr/local/bin/supervisor-go"]
 ```
 
 # Integrate with Prometheus
 
-The Prometheus node exporter supported supervisord metrics are now integrated into the supervisor. So there is no need to deploy an extra node_exporter to collect the supervisord metrics. To collect the metrics, the port parameter in section "inet_http_server" must be configured and the metrics server is started on the path /metrics of the supervisor http server.
+The Prometheus node exporter supported supervisor-go metrics are now integrated into the supervisor. So there is no need to deploy an extra node_exporter to collect the supervisor-go metrics. To collect the metrics, the port parameter in section "inet_http_server" must be configured and the metrics server is started on the path /metrics of the supervisor http server.
 
 For example, if the port parameter in "inet_http_server" is "127.0.0.1:9001" and then the metrics server should be accessed in url "http://127.0.0.1:9001/metrics" 
 
 
 # Register service
 
-Autostart supervisord after os started. Look up supported platforms at [kardianos/service](https://github.com/kardianos/service).
+Autostart supervisor-go after os started. Look up supported platforms at [kardianos/service](https://github.com/kardianos/service).
 
 ```Shell
 # install
-sudo supervisord service install -c full_path_to_conf_file
+sudo supervisor-go service install -c full_path_to_conf_file
 # uninstall
-sudo supervisord service uninstall
+sudo supervisor-go service uninstall
 # start
-supervisord service start
+supervisor-go service start
 # stop
-supervisord service stop
+supervisor-go service stop
 ```
 

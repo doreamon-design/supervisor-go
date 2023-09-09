@@ -1,11 +1,11 @@
 .idea
-supervisord
-supervisord.exe
+supervisor-go
+supervisor-go.exe
 test.log*
 .tags*
 debug
 go-debug.json
 vendor
-supervisord_linux_amd64
+supervisor-go
 upx
 dist

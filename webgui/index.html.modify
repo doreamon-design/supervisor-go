@@ -60,7 +60,7 @@
             refreshDisplay();
           } else {
             confirm_dialog( { 'title': "Information",
-                              'message': "Fail to start program, please check the log of supervisord to find reason",
+                              'message': "Fail to start program, please check the log of supervisor-go to find reason",
                               'cancel-text': "Cancel",
                               'cancel-hide': true,
                               'confirm-text': "Ok",
@@ -71,7 +71,7 @@
     },
     error: function( jqXHR, status, errorThrown ) {
            confirm_dialog( { 'title': "Information",
-                             'message': "Fail to start program, please check if supervisord is started or not",
+                             'message': "Fail to start program, please check if supervisor-go is started or not",
                              'cancel-text': "Cancel",
                              'cancel-hide': true,
                              'confirm-text': "Ok",
@@ -115,7 +115,7 @@
                           refreshDisplay();
                       } else {
                           confirm_dialog( { 'title': "Information",
-                              'message': "Fail to stop program, please check the log of supervisord",
+                              'message': "Fail to stop program, please check the log of supervisor-go",
                               'cancel-text': "Cancel",
                               'cancel-hide': true,
                               'confirm-text': "Ok",
@@ -127,7 +127,7 @@
                   },
                   error: function( jqXHR, status, errorThrown ) {
                       confirm_dialog( { 'title': "Information",
-                          'message': "Fail to stop program, please check if supervisord is running",
+                          'message': "Fail to stop program, please check if supervisor-go is running",
                           'cancel-text': "Cancel",
                           'cancel-hide': true,
                           'confirm-text': "Ok",

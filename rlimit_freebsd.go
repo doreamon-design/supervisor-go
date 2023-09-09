@@ -1,3 +1,4 @@
+//go:build freebsd
 // +build freebsd
 
 package main
@@ -28,7 +29,7 @@ func (s *Supervisor) getMinRequiredRes(resourceName string) (int64, error) {
 			return 0, fmt.Errorf("No such key %s", resourceName)
 		}
 	} else {
-		return 0, fmt.Errorf("No supervisord section")
+		return 0, fmt.Errorf("No supervisor-go section")
 	}
 
 }

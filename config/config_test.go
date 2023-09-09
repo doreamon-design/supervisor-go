@@ -2,11 +2,11 @@ package config
 
 import (
 	"fmt"
-	"supervisord/util"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
+	"supervisor-go/util"
 	"testing"
 )
 

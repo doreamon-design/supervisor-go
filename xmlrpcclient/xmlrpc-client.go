@@ -12,7 +12,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/ochinchina/supervisord/types"
+	"github.com/ochinchina/supervisor-go/types"
 
 	"github.com/ochinchina/gorilla-xmlrpc/xml"
 )
@@ -123,7 +123,7 @@ func (r *XMLRPCClient) postInetHTTP(method string, url string, data interface{},
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		if r.verbose {
-			fmt.Println("Fail to send request to supervisord:", err)
+			fmt.Println("Fail to send request to supervisor-go:", err)
 		}
 		return
 	}
@@ -191,7 +191,7 @@ func (r *XMLRPCClient) post(method string, data interface{}, processBody func(io
 
 }
 
-// GetVersion sends http request to acquire software version of supervisord
+// GetVersion sends http request to acquire software version of supervisor-go
 func (r *XMLRPCClient) GetVersion() (reply VersionReply, err error) {
 	ins := struct{}{}
 	r.post("supervisor.getVersion", &ins, func(body io.ReadCloser, procError error) {
@@ -250,7 +250,7 @@ func (r *XMLRPCClient) ChangeAllProcessState(change string) (reply AllProcessInf
 	return
 }
 
-// Shutdown requests to shut down supervisord
+// Shutdown requests to shut down supervisor-go
 func (r *XMLRPCClient) Shutdown() (reply ShutdownReply, err error) {
 	ins := struct{}{}
 	r.post("supervisor.shutdown", &ins, func(body io.ReadCloser, procError error) {
@@ -264,7 +264,7 @@ func (r *XMLRPCClient) Shutdown() (reply ShutdownReply, err error) {
 	return
 }
 
-// ReloadConfig requests supervisord to reload its configuration
+// ReloadConfig requests supervisor-go to reload its configuration
 func (r *XMLRPCClient) ReloadConfig() (reply types.ReloadConfigResult, err error) {
 	ins := struct{}{}
 

@@ -10,7 +10,7 @@ import (
 
 // Daemonize run this process in daemon mode
 func Daemonize(logfile string, proc func()) {
-	context := daemon.Context{LogFileName: logfile, PidFileName: "supervisord.pid"}
+	context := daemon.Context{LogFileName: logfile, PidFileName: "supervisor-go.pid"}
 
 	child, err := context.Reborn()
 	if err != nil {

@@ -8,14 +8,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ochinchina/supervisord/config"
-	"github.com/ochinchina/supervisord/events"
-	"github.com/ochinchina/supervisord/faults"
-	"github.com/ochinchina/supervisord/logger"
-	"github.com/ochinchina/supervisord/process"
-	"github.com/ochinchina/supervisord/signals"
-	"github.com/ochinchina/supervisord/types"
-	"github.com/ochinchina/supervisord/util"
+	"github.com/ochinchina/supervisor-go/config"
+	"github.com/ochinchina/supervisor-go/events"
+	"github.com/ochinchina/supervisor-go/faults"
+	"github.com/ochinchina/supervisor-go/logger"
+	"github.com/ochinchina/supervisor-go/process"
+	"github.com/ochinchina/supervisor-go/signals"
+	"github.com/ochinchina/supervisor-go/types"
+	"github.com/ochinchina/supervisor-go/util"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -431,7 +431,7 @@ func (s *Supervisor) SendRemoteCommEvent(r *http.Request, args *RemoteCommEvent,
 	return nil
 }
 
-// Reload supervisord configuration.
+// Reload supervisor-go configuration.
 func (s *Supervisor) Reload(restart bool) (addedGroup []string, changedGroup []string, removedGroup []string, err error) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
@@ -470,7 +470,7 @@ func (s *Supervisor) Reload(restart bool) (addedGroup []string, changedGroup []s
 
 }
 
-// WaitForExit waits for supervisord to exit
+// WaitForExit waits for supervisor-go to exit
 func (s *Supervisor) WaitForExit() {
 	for {
 		if s.IsRestarting() {
@@ -534,7 +534,7 @@ func (s *Supervisor) startHTTPServer() {
 	httpServerConfig, ok = s.config.GetUnixHTTPServer()
 	if ok {
 		env := config.NewStringExpression("here", s.config.GetConfigFileDir())
-		sockFile, err := env.Eval(httpServerConfig.GetString("file", "/tmp/supervisord.sock"))
+		sockFile, err := env.Eval(httpServerConfig.GetString("file", "/tmp/supervisor-go.sock"))
 		if err == nil {
 			cond := sync.NewCond(&sync.Mutex{})
 			cond.L.Lock()
@@ -555,12 +555,12 @@ func (s *Supervisor) startHTTPServer() {
 }
 
 func (s *Supervisor) setSupervisordInfo() {
-	supervisordConf, ok := s.config.GetSupervisord()
+	supervisorGoConf, ok := s.config.GetSupervisord()
 	if ok {
-		// set supervisord log
+		// set supervisor-go log
 
 		env := config.NewStringExpression("here", s.config.GetConfigFileDir())
-		logFile, err := env.Eval(supervisordConf.GetString("logfile", "supervisord.log"))
+		logFile, err := env.Eval(supervisorGoConf.GetString("logfile", "supervisor-go.log"))
 		if err != nil {
 			logFile, err = process.PathExpand(logFile)
 		}
@@ -570,17 +570,17 @@ func (s *Supervisor) setSupervisordInfo() {
 		logEventEmitter := logger.NewNullLogEventEmitter()
 		s.logger = logger.NewNullLogger(logEventEmitter)
 		if err == nil {
-			logfileMaxbytes := int64(supervisordConf.GetBytes("logfile_maxbytes", 50*1024*1024))
-			logfileBackups := supervisordConf.GetInt("logfile_backups", 10)
-			loglevel := supervisordConf.GetString("loglevel", "info")
+			logfileMaxbytes := int64(supervisorGoConf.GetBytes("logfile_maxbytes", 50*1024*1024))
+			logfileBackups := supervisorGoConf.GetInt("logfile_backups", 10)
+			loglevel := supervisorGoConf.GetString("loglevel", "info")
 			props := make(map[string]string)
-			s.logger = logger.NewLogger("supervisord", logFile, &sync.Mutex{}, logfileMaxbytes, logfileBackups, props, logEventEmitter)
+			s.logger = logger.NewLogger("supervisor-go", logFile, &sync.Mutex{}, logfileMaxbytes, logfileBackups, props, logEventEmitter)
 			log.SetLevel(toLogLevel(loglevel))
 			log.SetFormatter(&log.TextFormatter{DisableColors: true, FullTimestamp: true})
 			log.SetOutput(s.logger)
 		}
 		// set the pid
-		pidfile, err := env.Eval(supervisordConf.GetString("pidfile", "supervisord.pid"))
+		pidfile, err := env.Eval(supervisorGoConf.GetString("pidfile", "supervisor-go.pid"))
 		if err == nil {
 			f, err := os.Create(pidfile)
 			if err == nil {
@@ -606,7 +606,7 @@ func toLogLevel(level string) log.Level {
 	}
 }
 
-// ReloadConfig reloads supervisord configuration file
+// ReloadConfig reloads supervisor-go configuration file
 func (s *Supervisor) ReloadConfig(r *http.Request, args *struct{}, reply *types.ReloadConfigResult) error {
 	log.Info("start to reload config")
 	addedGroup, changedGroup, removedGroup, err := s.Reload(false)

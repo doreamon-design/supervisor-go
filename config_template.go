@@ -6,7 +6,7 @@ import (
 )
 
 var configTemplate = `[unix_http_server]
-file=/tmp/supervisord.sock
+file=/tmp/supervisor-go.sock
 #chmod=not support
 #chown=not support
 username=test1
@@ -17,12 +17,12 @@ port=127.0.0.1:9001
 username=test1
 password=thepassword
 
-[supervisord]
-logfile=%(here)s/supervisord.log
+[supervisor-go]
+logfile=%(here)s/supervisor-go.log
 logfileMaxbytes=50MB
 logfileBackups=10
 loglevel=info
-pidfile=%(here)s/supervisord.pid
+pidfile=%(here)s/supervisor-go.pid
 #umask=not support
 #nodaemon=not support
 #minfds=not support

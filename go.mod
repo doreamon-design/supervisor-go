@@ -1,4 +1,4 @@
-module github.com/ochinchina/supervisord
+module github.com/ochinchina/supervisor-go
 
 go 1.17
 
@@ -11,15 +11,15 @@ require (
 	github.com/ochinchina/go-ini v1.0.1
 	github.com/ochinchina/go-reaper v0.0.0-20181016012355-6b11389e79fc
 	github.com/ochinchina/gorilla-xmlrpc v0.0.0-20171012055324-ecf2fe693a2c
-	github.com/ochinchina/supervisord/config v0.0.0-20220721095143-c2527852d28f
-	github.com/ochinchina/supervisord/events v0.0.0-20220721095143-c2527852d28f
-	github.com/ochinchina/supervisord/faults v0.0.0-20220721095143-c2527852d28f
-	github.com/ochinchina/supervisord/logger v0.0.0-20220721095143-c2527852d28f
-	github.com/ochinchina/supervisord/process v0.0.0-20220520055329-8fdf6b62a44f
-	github.com/ochinchina/supervisord/signals v0.0.0-20220721095143-c2527852d28f
-	github.com/ochinchina/supervisord/types v0.0.0-20220520055329-8fdf6b62a44f
-	github.com/ochinchina/supervisord/util v0.0.0-20220721095143-c2527852d28f
-	github.com/ochinchina/supervisord/xmlrpcclient v0.0.0-20220520055329-8fdf6b62a44f
+	github.com/ochinchina/supervisor-go/config v0.0.0-20220721095143-c2527852d28f
+	github.com/ochinchina/supervisor-go/events v0.0.0-20220721095143-c2527852d28f
+	github.com/ochinchina/supervisor-go/faults v0.0.0-20220721095143-c2527852d28f
+	github.com/ochinchina/supervisor-go/logger v0.0.0-20220721095143-c2527852d28f
+	github.com/ochinchina/supervisor-go/process v0.0.0-20220520055329-8fdf6b62a44f
+	github.com/ochinchina/supervisor-go/signals v0.0.0-20220721095143-c2527852d28f
+	github.com/ochinchina/supervisor-go/types v0.0.0-20220520055329-8fdf6b62a44f
+	github.com/ochinchina/supervisor-go/util v0.0.0-20220721095143-c2527852d28f
+	github.com/ochinchina/supervisor-go/xmlrpcclient v0.0.0-20220520055329-8fdf6b62a44f
 	github.com/prometheus/client_golang v1.12.2
 	github.com/sirupsen/logrus v1.9.0
 )
@@ -44,13 +44,13 @@ require (
 )
 
 replace (
-	github.com/ochinchina/supervisord/config => ./config
-	github.com/ochinchina/supervisord/events => ./events
-	github.com/ochinchina/supervisord/faults => ./faults
-	github.com/ochinchina/supervisord/logger => ./logger
-	github.com/ochinchina/supervisord/process => ./process
-	github.com/ochinchina/supervisord/signals => ./signals
-	github.com/ochinchina/supervisord/types => ./types
-	github.com/ochinchina/supervisord/util => ./util
-	github.com/ochinchina/supervisord/xmlrpcclient => ./xmlrpcclient
+	github.com/ochinchina/supervisor-go/config => ./config
+	github.com/ochinchina/supervisor-go/events => ./events
+	github.com/ochinchina/supervisor-go/faults => ./faults
+	github.com/ochinchina/supervisor-go/logger => ./logger
+	github.com/ochinchina/supervisor-go/process => ./process
+	github.com/ochinchina/supervisor-go/signals => ./signals
+	github.com/ochinchina/supervisor-go/types => ./types
+	github.com/ochinchina/supervisor-go/util => ./util
+	github.com/ochinchina/supervisor-go/xmlrpcclient => ./xmlrpcclient
 )
