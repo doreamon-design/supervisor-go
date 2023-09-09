@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-// VERSION the version of supervisor
-const VERSION = "v0.7.3"
+// Version the version of supervisor
+var Version = "0.7.4"
 
 // VersionCommand implement the flags.Commander interface
 type VersionCommand struct {
@@ -15,7 +15,7 @@ var versionCommand VersionCommand
 
 // Execute implement Execute() method defined in flags.Commander interface, executes the given command
 func (v VersionCommand) Execute(args []string) error {
-	fmt.Println(VERSION)
+	fmt.Println(Version)
 	return nil
 }
 
